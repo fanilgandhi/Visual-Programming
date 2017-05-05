@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Blockly Demo: Fixed Blockly</title>
+
+  <script src="./js/blockly_compressed.js"></script>
+  <!-- <script src="./js/custom_blocks_compressed.js"></script> -->
+  <script src="./js/blocks_compressed.js"></script>
+  <script src="./js/en.js"></script>
+  <script src="./js/javascript_compressed.js"></script>
+  <script src="./js/python_compressed.js"></script>
+  <script src="./js/php_compressed.js"></script>
+  <script src="./js/c_sharp/csharp.js"></script>
+  <script src="./js/java.js"></script>
+  <script src="./js/op.js"></script>
+
+</head>
+<body>
+<style>
+#blocklyDiv {
+	width:700px;
+	height:500px;
+	border-radius:10px;
+}
+.code {
+	width:300px;
+	height:500px;
+	border:2px solid red;
+	border-radius:10px;
+}
+pre{
+	margin-left:5px;
+	margin-right:5px;
+}
+</style>
+
+  <center>
+  	<img src="icon.jpg" width=700 height=180> 
+
+	<div>
+	<table width="80%"><tr>
+	<td>
+		<div id="blocklyDiv"></div>
+	</td>
+	<td>
+	<div class="code">
+  		<div class="container" id="main" >
+  		<center>
+    		<h3 class="lan">Language</h3>
+            <select id="languageDropdown" onchange="myUpdateFunction();">
+		          <option value="JavaScript">JavaScript</option>
+		          <option value="Python">Python</option>
+		          <option value="PHP">PHP</option>
+		          <option value="CSharp">C#</option>
+		    </select>
+		</center>
+            
+        </div>
+		<br>
+		<pre id="codeDiv">
+    			
+    	</pre>
+      		
+		    </div>
+    	
+    </td>
+    </tr></table>
+		
+
+	</div>
+
+  <xml id="toolbox">
+    <category name="Variables" colour="50">
+      <block type="variables_set"></block>
+      <block type="variables_get"></block>
+      <block type="text"></block>
+      <block type="math_number"></block>
+      <block type="lists_create_empty"></block>
+    </category>
+
+    <category name="Conditionals & Loops" colour="100">
+      <block type="controls_if"></block>
+      <block type="controls_repeat_ext"></block>
+      <block type="controls_forEach"></block>
+      <block type="controls_for"></block>
+    </category>
+
+    <category name="Math" colour="150">
+      
+      <block type="math_random_int"></block>
+      <block type="math_on_list"></block>
+      <block type="math_arithmetic"></block>
+      <block type="math_round"></block>
+      <block type="math_modulo"></block>
+    </category>
+
+    <category name="String" colour="200">
+        <block type="text_join"></block>
+        <block type="text_indexOf"></block>
+        <block type="text_charAt"></block>
+        <block type="text_changeCase"></block>
+        <block type="text_getSubstring"></block>
+    </category>    
+    <category name="Lists" colour="250">
+      <block type="lists_length"></block>
+      <block type="lists_indexOf"></block>
+      <block type="lists_getSublist"></block>
+      <block type="lists_sort"></block>
+      <block type="lists_getIndex"></block>
+    </category>
+    <category name="Common" colour="c0c">
+    	<block type="text_print"></block>
+    </category>
+
+ 
+  </xml>
+</center>
+  <script>
+  	var x  = document.getElementById('blocklyDiv');
+  	var workspace = Blockly.inject('blocklyDiv',
+    {
+    	media: './media/',
+        zoom:
+			{controls: true,
+			wheel: true,
+			startScale: 1.0,
+			maxScale: 3,
+			minScale: 0.5,
+			scaleSpeed: 1.2},
+		grid:
+			{spacing: 20,
+			length: 3,
+			colour: '#D7D7D7',
+			snap: true},
+        toolbox: document.getElementById('toolbox')
+     });
+
+  	function myUpdateFunction(event) {
+  		var drop = document.getElementById("languageDropdown");
+  		switch(drop.value){
+  			case "JavaScript":
+  				var code = Blockly.JavaScript.workspaceToCode(workspace);
+  				break;
+  			case "PHP":
+  				var code = Blockly.PHP.workspaceToCode(workspace);
+  				break;
+  			case "Python":
+  				var code = Blockly.Python.workspaceToCode(workspace);
+  				break;
+  			case "CSharp":
+  				var code = Blockly.CSharp.workspaceToCode(workspace);
+  				break;
+  		}
+  		var a = document.getElementById('codeDiv');
+  		a.innerHTML = code;
+	}
+	workspace.addChangeListener(myUpdateFunction);
+  	</script>
+
+
+</body>
+</html>
